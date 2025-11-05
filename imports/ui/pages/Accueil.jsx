@@ -72,7 +72,7 @@ function Hero() {
 /* ------------------- ABOUT ------------------- */
 function About() {
   return (
-    <section className="w-full py-16 bg-white">
+    <section className="w-full py-16 bg-white -mt-12 ">
       <div className="max-w-6xl mx-auto px-6 md:px-12 grid md:grid-cols-2 gap-8 items-center">
         <div>
           <h2 className="text-3xl font-bold mb-4">Notre Maison</h2>
@@ -107,7 +107,7 @@ function About() {
 
 function Badge({ text }) {
   return (
-    <span className="px-4 py-2 rounded-full bg-yellow-800 text-white text-sm font-medium shadow">
+    <span className="px-4 py-2 rounded-full bg-yellow-800 text-white text-sm font-medium shadow ">
       {text}
     </span>
   );
@@ -144,7 +144,7 @@ function CollectionCarousel() {
   }, [index]);
 
   return (
-    <section className="w-full py-16 bg-gray-50 relative overflow-hidden">
+    <section className="w-full py-16 bg-gray-50 relative overflow-hidden  ">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <h2 className="text-3xl font-bold mb-6 text-center text-yellow-900">
           Fascino Collection
@@ -245,7 +245,7 @@ function Services() {
   ];
 
   return (
-    <section className="w-full py-16">
+    <section className="w-full py-16 -mt-8 ">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <h2 className="text-3xl font-bold mb-6 text-center">Nos Services</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -287,9 +287,9 @@ function Testimonials() {
   ];
 
   return (
-    <section className="w-full py-16 bg-gray-50">
+    <section className="w-full py-16 bg-gray-50 -mt-8">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <h2 className="text-3xl font-bold mb-6 text-center">Avis clients</h2>
+        <h2 className="text-3xl font-bold mb-8 -mt-8 text-center">Avis clients</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {items.map((it, i) => (
             <blockquote key={i} className="p-6 bg-white rounded-lg shadow">
@@ -309,11 +309,11 @@ function Testimonials() {
 /* ------------------- FINAL CTA ------------------- */
 function FinalCta() {
   return (
-    <section className="w-full py-16  text-yellow-800 bg-cover bg-center" style={{ backgroundImage: "url('/images/bgaccueil2.png')" }}>
+    <section className="w-full py-16  text-yellow-800 bg-cover bg-center -mt-8" style={{ backgroundImage: "url('/images/bgaccueil2.png')" }}>
       <div className="max-w-6xl mx-auto px-6 md:px-12 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Prêt(e) à vivre l’expérience Berna Fascino ?</h2>
         <p className="mb-6 text-lg">Réservez votre essayage sur-mesure ou découvrez notre collection.</p>
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-4 -mb-6">
           <a
             href="/Contact"
             className="bg-white text-yellow-800 px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition"

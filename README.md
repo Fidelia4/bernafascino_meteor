@@ -1,4 +1,4 @@
-# Berna Fascino - Site Vitrine
+<!-- # Berna Fascino - Site Vitrine
 
 ## Description
 Site vitrine pour la maison Berna Fascino, réalisé avec **Meteor + React + Tailwind**.  
@@ -30,4 +30,4 @@ curl https://install.meteor.com/ | sh
 meteor npm install
 
 # Lancer le projet
-meteor
+meteor -->

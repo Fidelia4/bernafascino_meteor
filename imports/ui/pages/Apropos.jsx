@@ -193,9 +193,9 @@ function Values() {
   ];
 
   return (
-    <section className="w-full py-16 bg-white">
+    <section className="w-full py-16 bg-white -mt-8 ">
       <div className="max-w-6xl mx-auto px-6 md:px-12 text-center">
-        <h2 className="text-3xl font-bold mb-8 text-yellow-800">Nos Valeurs</h2>
+        <h2 className="text-3xl font-bold mb-6  -mt-8 text-yellow-800">Nos Valeurs</h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {values.map((v, i) => (
             <div key={i} className="p-6 bg-gray-50 rounded-lg shadow hover:translate-y-1 transition">
@@ -236,9 +236,9 @@ function Services() {
   ];
 
   return (
-    <section className="w-full py-16 bg-gray-50">
+    <section className="w-full py-16 bg-gray-50 -mt-8">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <h3 className="text-2xl font-bold mb-6 text-center">Ce que nous faisons</h3>
+        <h3 className="text-2xl font-bold mb-6 text-center -mt-8">Ce que nous faisons</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {services.map((s, i) => (
             <div key={i} className="p-6 bg-white rounded-lg shadow hover:translate-y-1 transition">
@@ -263,7 +263,7 @@ function Testimonials() {
   return (
     <section className="w-full py-8 -mt-12">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <h3 className="text-2xl font-bold mb-6 text-center">Ils parlent de nous</h3>
+        <h3 className="text-2xl font-bold mb-8 mt-10 text-center">Ils parlent de nous</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
             <figure key={i} className="p-6 bg-white rounded-lg shadow">
