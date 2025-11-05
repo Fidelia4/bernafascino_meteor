@@ -1,6 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
+import { Meteor } from "meteor/meteor";
 
 export default function Contact() {
+  // 🔹 États pour gérer les champs du formulaire
+  const [nom, setNom] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState("");
+
+  // 🔹 Fonction de soumission du formulaire
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!nom || !email || !message) {
+      setStatus("Veuillez remplir tous les champs.");
+      return;
+    }
+
+    Meteor.call("messages.insert", { nom, email, message }, (error) => {
+      if (error) {
+        console.error("Erreur lors de l’envoi :", error);
+        setStatus("❌ Une erreur est survenue. Veuillez réessayer.");
+      } else {
+        setStatus("✅ Message envoyé avec succès !");
+        setNom("");
+        setEmail("");
+        setMessage("");
+      }
+    });
+  };
+
   return (
     <div
       className="flex flex-col items-center justify-center p-6 md:p-12 -mt-12 text-center bg-cover bg-center bg-no-repeat"
@@ -11,29 +40,38 @@ export default function Contact() {
       </h1>
 
       {/* Conteneur principal */}
-      <div className="flex flex-col md:flex-row gap-10 items-center justify-center w-full max-w-5xl bg-[#ffffff]  opacity-90 rounded-xl p-6 md:p-10 shadow-lg">
+      <div className="flex flex-col md:flex-row gap-10 items-center justify-center w-full max-w-5xl bg-[#ffffff] opacity-90 rounded-xl p-6 md:p-10 shadow-lg">
         {/* Partie gauche : Formulaire */}
         <div className="flex-1 flex flex-col items-center">
           <p className="mb-2 text-lg">
-             Email : <span className="font-semibold">fideliagbd@gmail.com</span>
+            Email : <span className="font-semibold">fideliagbd@gmail.com</span>
           </p>
           <p className="mb-6 text-lg">
-             Téléphone : <span className="font-semibold">+229 01 54 10 34 65</span>
+            Téléphone : <span className="font-semibold">+229 01 54 10 34 65</span>
           </p>
 
-          <form className="flex flex-col gap-3 w-full max-w-md items-center">
+          <form
+            className="flex flex-col gap-3 w-full max-w-md items-center"
+            onSubmit={handleSubmit}
+          >
             <input
               type="text"
               placeholder="Nom"
+              value={nom}
+              onChange={(e) => setNom(e.target.value)}
               className="p-3 border rounded-md w-full focus:outline-none focus:ring-2 focus:ring-yellow-700"
             />
             <input
               type="email"
               placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="p-3 border rounded-md w-full focus:outline-none focus:ring-2 focus:ring-yellow-700"
             />
             <textarea
               placeholder="Message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
               className="p-3 border rounded-md w-full focus:outline-none focus:ring-2 focus:ring-yellow-700 h-32 resize-none"
             ></textarea>
             <button
@@ -43,6 +81,11 @@ export default function Contact() {
               Envoyer
             </button>
           </form>
+
+          {/* Message de statut */}
+          {status && (
+            <p className="mt-4 text-sm text-gray-700 font-medium">{status}</p>
+          )}
         </div>
 
         {/* Partie droite : Google Map */}
@@ -62,7 +105,8 @@ export default function Contact() {
 
       {/* Texte sous la carte */}
       <p className="text-center mt-6 text-white italic max-w-2xl drop-shadow-md">
-        📍 Nous sommes situés à l’école de base Agla Agbongbomey, près de la cafétéria Choco Milo — Cotonou.
+        📍 Nous sommes situés à l’école de base Agla Agbongbomey, près de la
+        cafétéria Choco Milo — Cotonou.
       </p>
     </div>
   );

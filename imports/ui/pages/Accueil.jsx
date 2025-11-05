@@ -144,7 +144,7 @@ function CollectionCarousel() {
   }, [index]);
 
   return (
-    <section className="w-full py-16 bg-gray-50 relative overflow-hidden  ">
+    <section className="w-full py-16 bg-gray-200 relative overflow-hidden -mt-12 ">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <h2 className="text-3xl font-bold mb-6 text-center text-yellow-900">
           Fascino Collection
