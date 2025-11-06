@@ -32,9 +32,11 @@
     "modern": true
   },
 
-  "scripts": {
-  "start": "node main.js",
-  "build": "meteor build ../output --directory"
+"scripts": {
+  "preinstall": "curl https://install.meteor.com/ | sh",
+  "start": "meteor run",
+  "build": "meteor npm install && meteor build ../output --directory"
 }
+
 
 }
