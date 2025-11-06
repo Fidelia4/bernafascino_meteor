@@ -30,5 +30,11 @@
     },
     "testModule": "tests/main.js",
     "modern": true
-  }
+  },
+
+  "scripts": {
+  "start": "node main.js",
+  "build": "meteor build ../output --directory"
+}
+
 }
