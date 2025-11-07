@@ -47,8 +47,19 @@ export default function Contact() {
             Email : <span className="font-semibold">fideliagbd@gmail.com</span>
           </p>
           <p className="mb-6 text-lg">
-            Téléphone : <span className="font-semibold">+229 01 54 10 34 65</span>
+            Téléphone : <span className="font-semibold">+229 01 54 10 34 65 / +229 01 96 33 31 09</span>
           </p>
+            
+              <div className="flex gap-4 -mt-4 mb-2">
+          <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODk1MTE5MTAwMjgxNzgz?story_media_id=3705078725777849586_64561994540&igsh=MXNwdmh4MXF3NDFtNQ==" target="_blank" rel="noopener noreferrer">
+            <img src="images/instafid.png" alt="instagram" className="w-12 h-12" />
+            Instagram
+          </a>
+          <a href="https://wa.me/message/RR3ALGKGJ5WGD1" target="_blank" rel="noopener noreferrer">
+            <img src="images/whatsappfid.png" alt="whatsapp" className="w-12 h-12" />
+            Whatsapp
+          </a>
+        </div>
 
           <form
             className="flex flex-col gap-3 w-full max-w-md items-center"

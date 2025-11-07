@@ -3,50 +3,48 @@ import { Mongo } from "meteor/mongo";
 import { check } from "meteor/check";
 import { Email } from "meteor/email";
 
-// 🔹 Collection MongoDB pour les commandes
 export const Commandes = new Mongo.Collection("commandes");
 
-if (Meteor.isServer) {
-  Meteor.publish("commandes", function () {
-    return Commandes.find();
-  });
-}
-
-// 🔹 Méthodes Meteor
 Meteor.methods({
-  "commandes.insert"({ nomClient, emailClient, article, quantite, prixTotal }) {
+  async "commandes.insert"({ nomClient, emailClient, article, quantite, prixTotal }) {
     check(nomClient, String);
     check(emailClient, String);
     check(article, String);
     check(quantite, Number);
     check(prixTotal, Number);
 
-    // Insertion dans MongoDB
-    const commandeId = Commandes.insert({
-      nomClient,
-      emailClient,
-      article,
-      quantite,
-      prixTotal,
-      createdAt: new Date(),
-    });
+    try {
+      // ✅ Nouvelle syntaxe avec insertAsync
+      const commandeId = await Commandes.insertAsync({
+        nomClient,
+        emailClient,
+        articles: [{ nom: article, quantite, prix: prixTotal }],
+        createdAt: new Date(),
+      });
 
-    console.log(`🛒 Nouvelle commande de ${nomClient} pour ${quantite}x ${article}`);
+      const texte = `
+Nouvelle commande :
+👤 Nom : ${nomClient}
+📧 Email : ${emailClient}
 
-    // Envoi d’un email automatique à toi (administrateur)
-    Email.send({
-      to: "fideliagbd@gmail.com", // ton adresse de réception
-      from: emailClient,
-      subject: `📦 Nouvelle commande de ${nomClient}`,
-      text: `
-        Nom : ${nomClient}
-        Email : ${emailClient}
-        Article : ${article}
-        Quantité : ${quantite}
-        Prix total : ${prixTotal} FCFA
-      `,
-    });
+🛍️ Article : ${article}
+Quantité : ${quantite}
+Total : ${prixTotal.toLocaleString()} FCFA
+`;
 
-    return commandeId;
+      // ✅ Envoi du mail
+      Email.send({
+        to: "fideliagbd@gmail.com", // Ton adresse de réception
+        from: emailClient,
+        subject: `🧵 Nouvelle commande : ${nomClient}`,
+        text: texte,
+      });
+
+      console.log("✅ Commande simple envoyée :", texte);
+      return commandeId;
+    } catch (error) {
+      console.error("❌ Erreur lors de l’envoi du mail :", error);
+      throw new Meteor.Error("email-failed", error.message);
+    }
   },
 });

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Meteor } from "meteor/meteor"; // ✅ Import essentiel pour l'appel de méthode
+import { Meteor } from "meteor/meteor";
 
 export default function NosCreation() {
   const creationsFemme = [
@@ -15,7 +15,7 @@ export default function NosCreation() {
       nom: "Blazer Robe",
       image: "/images/blazer.jpg",
       description: "Robe Blazer moderne, coupe structurée.",
-      prix: 15000,
+      prix: 25000,
     },
     {
       id: 3,
@@ -51,7 +51,7 @@ export default function NosCreation() {
     setQuantites({ ...quantites, [id]: Number(value) });
   };
 
-  // 🔹 Gestion de la commande
+  // 🔹 Commande d’un seul article
   const handleCommander = (item) => {
     const quantite = quantites[item.id] || 1;
     const prixTotal = quantite * item.prix;
@@ -61,7 +61,6 @@ export default function NosCreation() {
       return;
     }
 
-    // ✅ Appel au serveur Meteor
     Meteor.call(
       "commandes.insert",
       {
@@ -71,7 +70,7 @@ export default function NosCreation() {
         quantite,
         prixTotal,
       },
-      (err, res) => {
+      (err) => {
         if (err) {
           console.error("Erreur :", err);
           alert("❌ Une erreur est survenue, veuillez réessayer.");
@@ -82,8 +81,45 @@ export default function NosCreation() {
     );
   };
 
+  // 🔹 Commande de plusieurs articles à la fois
+  const handleCommanderTout = () => {
+    const articlesCommandes = Object.keys(quantites)
+      .filter((id) => quantites[id] > 0)
+      .map((id) => {
+        const item = chemisesCollection.find((p) => p.id === Number(id));
+        return {
+          article: item.nom,
+          quantite: quantites[id],
+          prixTotal: item.prix * quantites[id],
+        };
+      });
+
+    if (articlesCommandes.length === 0) {
+      alert("❌ Aucune chemise sélectionnée.");
+      return;
+    }
+
+    if (!clientNom || !clientEmail) {
+      alert("❌ Veuillez entrer votre nom et email avant de commander.");
+      return;
+    }
+
+    Meteor.call(
+      "commandes.insertMultiple",
+      { nomClient: clientNom, emailClient: clientEmail, articles: articlesCommandes },
+      (err) => {
+        if (err) {
+          console.error("Erreur :", err);
+          alert("❌ Une erreur est survenue, veuillez réessayer.");
+        } else {
+          alert("✅ Commande envoyée avec succès !");
+        }
+      }
+    );
+  };
+
   return (
-    <section className="w-full bg-gray-50 py-16 px-4 md:px-12 -mt-11">
+    <section className="w-full bg-gray-50 py-16 px-4 md:px-12 -mt-11 relative">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-start">
         {/* ---- Gauche : Créations Berna Fascino ---- */}
         <div>
@@ -96,13 +132,19 @@ export default function NosCreation() {
                 key={item.id}
                 className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-lg transition duration-300"
               >
-                <img src={item.image} alt={item.nom} className="w-full h-148 object-cover" />
-                <div className="p-4">
+                <img src={item.image} alt={item.nom} className="w-full h-141 object-cover" />
+                <div className="p-4 flex flex-col items-start">
                   <h3 className="text-xl font-semibold text-gray-800">{item.nom}</h3>
                   <p className="text-gray-600 text-sm mb-3">{item.description}</p>
-                  <span className="text-yellow-700 font-bold">
+                  <span className="text-yellow-700 font-bold mb-3">
                     {item.prix.toLocaleString()} FCFA
                   </span>
+                  <a
+                    href="Contact"
+                    className="bg-yellow-700 text-white px-4 py-2 rounded-lg hover:bg-yellow-800 transition"
+                  >
+                    📩 Intéressé ? Contactez-nous
+                  </a>
                 </div>
               </div>
             ))}
@@ -110,7 +152,7 @@ export default function NosCreation() {
         </div>
 
         {/* ---- Droite : Fascino Collection ---- */}
-        <div>
+        <div className="relative">
           <h2 className="text-3xl font-bold text-yellow-800 mb-4 text-center md:text-left">
             Fascino Collection - Chemises
           </h2>
@@ -134,7 +176,7 @@ export default function NosCreation() {
           </div>
 
           {/* 🔸 Liste chemises */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-16">
             {chemisesCollection.map((item) => (
               <div
                 key={item.id}
@@ -153,7 +195,7 @@ export default function NosCreation() {
                   <input
                     type="number"
                     min="1"
-                    value={quantites[item.id] || 1}
+                    value={quantites[item.id] || 0}
                     onChange={(e) => handleChange(item.id, e.target.value)}
                     className="w-16 border border-gray-300 rounded-lg p-1 text-center"
                   />
@@ -168,6 +210,16 @@ export default function NosCreation() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* 🔹 Bouton “Commander tout” fixé */}
+      <div className="fixed bottom-5 right-5 z-50">
+        <button
+          onClick={handleCommanderTout}
+          className="bg-yellow-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:bg-yellow-800 transition"
+        >
+          🛍️ Commander tout
+        </button>
       </div>
     </section>
   );
