@@ -151,13 +151,13 @@ export default function NosCreation() {
           </div>
         </div>
 
-        {/* ---- Droite : Fascino Collection ---- */}
+        {/* ---Droite : Fascino Collection---- */}
         <div className="relative">
           <h2 className="text-3xl font-bold text-yellow-800 mb-4 text-center md:text-left">
             Fascino Collection - Chemises
           </h2>
 
-          {/* 🔸 Infos client */}
+          {/* 🔸Infos client */}
           <div className="mb-6 flex flex-col sm:flex-row gap-4">
             <input
               type="text"

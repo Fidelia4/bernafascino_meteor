@@ -3,7 +3,7 @@ import { Truck, RefreshCw, Scissors, CreditCard, CheckCircle, Phone, MailCheckIc
 
 const Regles = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white text-gray-800 px-6 md:px-20 py-10">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white text-gray-800 px-6 md:px-20 py-10 -mt-12 ">
       <h1 className="text-3xl md:text-4xl font-bold text-center text-yellow-900 mb-8">
         🧾 Règles et Politiques de la Boutique
       </h1>
