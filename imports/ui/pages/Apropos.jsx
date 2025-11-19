@@ -63,7 +63,7 @@ function Intro() {
   return (
     <section
       ref={ref}
-      className={`w-full bg-white py-2 md:py-8 transition-all duration-700 ${
+      className={`w-full bg-white py-2 md:py-4 transition-all duration-700 ${
         inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
       }`}
     >
@@ -91,7 +91,7 @@ function Intro() {
           <img
             src="/images/mama.jpg"
             alt="Bernadette Hounnou - fondatrice Berna Fascino"
-            className="w-full h-130 object-cover"
+            className="w-full h-145 object-cover"
             draggable={false}
           />
         </div>
