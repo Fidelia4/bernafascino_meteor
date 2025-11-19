@@ -27,7 +27,7 @@ export default function Header() {
         <div className="container mx-auto flex justify-between items-center px-6 h-20 relative">
 
           {/* LOGO */}
-          <img src="/images/logo.png" alt="Logo" className="h-20" />
+          <img src="/images/logo.png" alt="Logo" className="h-30" />
 
           {/* NAVIGATION */}
           <nav
@@ -64,7 +64,7 @@ export default function Header() {
             src="/images/panier2.png"
             alt="Panier"
             onClick={() => navigate("/NosCreations")}
-            className="h-10 w-10 cursor-pointer hidden sm:block"
+            className="h-20 w-20 cursor-pointer hidden sm:block"
           />
 
           {/* HAMBURGER MOBILE */}
